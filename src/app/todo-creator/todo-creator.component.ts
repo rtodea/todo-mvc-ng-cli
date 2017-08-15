@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { TodoService } from '../todo.service';
 
 @Component({
   selector: 'tdm-todo-creator',
@@ -6,10 +8,27 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./todo-creator.component.css']
 })
 export class TodoCreatorComponent implements OnInit {
+  form: FormGroup;
+
   callToAction = 'What needs to be done?';
 
-  constructor() { }
+  constructor(private todoService: TodoService) {
+  }
 
   ngOnInit() {
+    this.form = new FormGroup({
+      todo: new FormControl(null, [Validators.required]),
+    });
+  }
+
+  save() {
+    const todoText = this.form.controls.todo.value;
+
+    this.todoService.create(todoText);
+    this.form.reset();
+  }
+
+  delete(todoId) {
+    this.todoService.delete(todoId);
   }
 }
