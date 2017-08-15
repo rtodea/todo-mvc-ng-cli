@@ -2,7 +2,7 @@
   <li *ngFor="let todo of todos">
     <span *ngIf="!isInEditMode(todo)" (dblclick)="setEditMode(todo)">
       <input type="checkbox" [(ngModel)]="todo.done">
-      {{ todo.text }}
+      <span [ngClass]="{done: todo.done}">{{ todo.text }}</span>
       <button (click)="delete(todo)">delete me</button>
     </span>
     <input *ngIf="isInEditMode(todo)"
