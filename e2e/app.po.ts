@@ -8,4 +8,8 @@ export class AppPage {
   getParagraphText() {
     return element(by.css('tdm-root h1')).getText();
   }
+
+  getInput() {
+    return element(by.tagName('input'));
+  }
 }
