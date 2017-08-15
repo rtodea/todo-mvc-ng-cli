@@ -1,5 +1,12 @@
 <ul>
   <li *ngFor="let todo of todos">
-    {{ todo.text }}
+    <span *ngIf="!isInEditMode(todo)" (dblclick)="setEditMode(todo)">
+      <input type="checkbox" [(ngModel)]="todo.done">
+      {{ todo.text }}
+      <button (click)="delete(todo)">delete me</button>
+    </span>
+    <input *ngIf="isInEditMode(todo)"
+      (blur)="setEditMode(todo, false)"
+      [(ngModel)]="todo.text">
   </li>
 </ul>

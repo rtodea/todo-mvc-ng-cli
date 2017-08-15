@@ -7,6 +7,8 @@ import { TodoItem, TodoService } from '../todo.service';
   styleUrls: ['./todo-listing.component.css']
 })
 export class TodoListingComponent implements OnInit {
+  private todoInEditMode: string;
+
   todos: TodoItem[];
 
   constructor(private todoService: TodoService) {
@@ -16,5 +18,21 @@ export class TodoListingComponent implements OnInit {
     this.todoService.todosObservable.subscribe((todos) => {
       this.todos = todos;
     });
+  }
+
+  delete(todo) {
+    this.todoService.delete(todo.id);
+  }
+
+  isInEditMode(todo) {
+    return todo.id === this.todoInEditMode;
+  }
+
+  setEditMode(todo, isEditable = true) {
+    if (isEditable === false) {
+      this.todoInEditMode = null;
+    } else {
+      this.todoInEditMode = todo.id;
+    }
   }
 }

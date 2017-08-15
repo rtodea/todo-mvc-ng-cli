@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { TodoService, TodoItemActive } from './todo.service';
+import { TodoService, TodoItemActive, TodoItem, TodoItemDone } from './todo.service';
 
 describe('TodoService', () => {
   beforeEach(() => {
@@ -50,4 +50,13 @@ describe('TodoService', () => {
       service.create(testTodo);
     })();
   });
+
+  it('should have done flag when todo item is Done', () => {
+    const todo = new TodoItem('stuff');
+    expect(todo.status).toEqual(TodoItemActive);
+    expect(todo.done).toEqual(false);
+    todo.done = true;
+    expect(todo.status).toEqual(TodoItemDone);
+    expect(todo.done).toEqual(true);
+  })
 });

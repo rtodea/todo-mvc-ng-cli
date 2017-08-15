@@ -2,7 +2,7 @@ import { TestBed, async } from '@angular/core/testing';
 
 import { AppComponent } from './app.component';
 import { TodoCreatorComponent } from './todo-creator/todo-creator.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TodoListingComponent } from './todo-listing/todo-listing.component';
 import { TodoService } from './todo.service';
 
@@ -15,6 +15,7 @@ describe('AppComponent', () => {
         TodoListingComponent,
       ],
       imports: [
+        FormsModule,
         ReactiveFormsModule,
       ],
       providers: [
