@@ -51,5 +51,16 @@ describe('TodoListingComponent', () => {
     component.setEditMode(mockTodos[1]);
     expect(component.isInEditMode(mockTodos[0])).toEqual(false);
     expect(component.isInEditMode(mockTodos[1])).toEqual(true);
-  })
+  });
+
+  it('should forget one item in edit mode', () => {
+    const todo = new TodoItem('first');
+    component.todos = [todo];
+
+    component.setEditMode(todo);
+    expect(component.isInEditMode(todo)).toEqual(true);
+
+    component.exitEditMode();
+    expect(component.isInEditMode(todo)).toEqual(false);
+  });
 });

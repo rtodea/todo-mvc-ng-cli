@@ -28,11 +28,11 @@ export class TodoListingComponent implements OnInit {
     return todo.id === this.todoInEditMode;
   }
 
-  setEditMode(todo, isEditable = true) {
-    if (isEditable === false) {
-      this.todoInEditMode = null;
-    } else {
-      this.todoInEditMode = todo.id;
-    }
+  setEditMode(todo) {
+    this.todoInEditMode = todo.id;
+  }
+
+  exitEditMode() {
+    this.todoInEditMode = null;
   }
 }

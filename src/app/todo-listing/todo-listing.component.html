@@ -6,7 +6,7 @@
       <button (click)="delete(todo)">delete me</button>
     </span>
     <input *ngIf="isInEditMode(todo)"
-      (blur)="setEditMode(todo, false)"
+      (blur)="exitEditMode()"
       [(ngModel)]="todo.text">
   </li>
 </ul>
