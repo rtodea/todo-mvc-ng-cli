@@ -7,6 +7,7 @@ import { TodoListingComponent } from './todo-listing/todo-listing.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TodoService } from './todo.service';
 import { TodoCounterComponent } from './todo-counter/todo-counter.component';
+import { TodoFilterComponent } from './todo-filter/todo-filter.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { TodoCounterComponent } from './todo-counter/todo-counter.component';
     TodoCreatorComponent,
     TodoListingComponent,
     TodoCounterComponent,
+    TodoFilterComponent,
   ],
   imports: [
     BrowserModule,
