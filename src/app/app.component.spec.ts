@@ -5,6 +5,7 @@ import { TodoCreatorComponent } from './todo-creator/todo-creator.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TodoListingComponent } from './todo-listing/todo-listing.component';
 import { TodoService } from './todo.service';
+import { TodoCounterComponent } from './todo-counter/todo-counter.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -13,6 +14,7 @@ describe('AppComponent', () => {
         AppComponent,
         TodoCreatorComponent,
         TodoListingComponent,
+        TodoCounterComponent,
       ],
       imports: [
         FormsModule,

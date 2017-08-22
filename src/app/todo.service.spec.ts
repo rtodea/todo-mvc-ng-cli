@@ -58,5 +58,5 @@ describe('TodoService', () => {
     todo.done = true;
     expect(todo.status).toEqual(TodoItemDone);
     expect(todo.done).toEqual(true);
-  })
+  });
 });
