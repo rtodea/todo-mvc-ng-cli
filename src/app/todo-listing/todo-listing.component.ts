@@ -13,7 +13,7 @@ export class TodoListingComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
-  todos: TodoItem[];
+  todos: TodoItem[] = [];
 
   constructor(private todoService: TodoService) {
   }
