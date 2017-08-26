@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 
 
-export enum FILTER_TYPE {
-  ALL,
-  ACTIVE,
-  COMPLETED,
+export enum FilterType {
+  All,
+  Active,
+  Completed,
 }
 
 export interface TodoFilter {
   isActive: boolean;
   label: string;
-  type: FILTER_TYPE;
+  type: FilterType;
 }
 
 @Component({
@@ -22,17 +22,17 @@ export class TodoFilterComponent implements OnInit {
   filters: TodoFilter[] = [
     {
       label: 'Active',
-      type: FILTER_TYPE.ACTIVE,
+      type: FilterType.Active,
       isActive: false,
     },
     {
       label: 'Completed',
-      type: FILTER_TYPE.COMPLETED,
+      type: FilterType.Completed,
       isActive: false,
     },
     {
       label: 'All',
-      type: FILTER_TYPE.ALL,
+      type: FilterType.All,
       isActive: true,
     },
   ];

@@ -64,4 +64,22 @@ describe('TodoService', () => {
     service.update(todo.id, {text: newText});
     expect(todo.text).toEqual(newText);
   }));
+
+
+  it('should load todos', (done) => {
+    inject([TodoService], (service: TodoService) => {
+      const todos = [
+        new TodoItem('first'),
+        new TodoItem('second'),
+        new TodoItem('third'),
+      ];
+
+      service.todosObservable.subscribe((serviceTodos) => {
+        expect(serviceTodos.length).toEqual(todos.length);
+        done();
+      });
+
+      service.load(todos);
+    })();
+  });
 });

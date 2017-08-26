@@ -8,6 +8,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TodoService } from './todo.service';
 import { TodoCounterComponent } from './todo-counter/todo-counter.component';
 import { TodoFilterComponent } from './todo-filter/todo-filter.component';
+import { StoreService } from './store.service';
+import { TodoStoreService } from './todo-store.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,11 @@ import { TodoFilterComponent } from './todo-filter/todo-filter.component';
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [TodoService],
+  providers: [
+    TodoService,
+    StoreService,
+    TodoStoreService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

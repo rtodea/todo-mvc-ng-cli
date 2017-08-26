@@ -11,7 +11,7 @@ describe('TodoCounterComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ TodoCounterComponent ],
         providers: [
-            TodoService,
+          TodoService,
         ]
     })
     .compileComponents();

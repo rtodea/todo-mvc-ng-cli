@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import * as uuid from 'uuid';
+import { TodoFilter } from './todo-filter/todo-filter.component';
+import { StoreService } from "./store.service";
 
 export class TodoItem implements TodoItem {
 
@@ -40,7 +42,17 @@ export class TodoService {
 
   todosObservable = this.todos$.asObservable();
 
-  constructor() { }
+  load(todos) {
+    this.todos = todos;
+    todos.forEach((todo) => {
+      this.todosById.set(todo.id, todo);
+    });
+
+    this.todos$.next(todos);
+  }
+
+  constructor() {
+  }
 
   create(todoText: string) {
     const todoItem = new TodoItem(todoText);

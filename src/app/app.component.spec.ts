@@ -7,6 +7,8 @@ import { TodoListingComponent } from './todo-listing/todo-listing.component';
 import { TodoService } from './todo.service';
 import { TodoCounterComponent } from './todo-counter/todo-counter.component';
 import { TodoFilterComponent } from './todo-filter/todo-filter.component';
+import { StoreService } from './store.service';
+import { TodoStoreService } from './todo-store.service';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -24,6 +26,8 @@ describe('AppComponent', () => {
       ],
       providers: [
         TodoService,
+        StoreService,
+        TodoStoreService,
       ]
     }).compileComponents();
   }));
