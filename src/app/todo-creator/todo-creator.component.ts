@@ -28,7 +28,7 @@ export class TodoCreatorComponent implements OnInit {
     this.form.reset();
   }
 
-  delete(todoId) {
-    this.todoService.delete(todoId);
+  destroy(todoId) {
+    this.todoService.destroy(todoId);
   }
 }

@@ -4,6 +4,16 @@ This project was generated with
 [Angular CLI](https://github.com/angular/angular-cli) version 1.3.0
 and implements the [TodoMVC](http://todomvc.com/) app.
 
+## Themes Covered
+
+At the fundamental level we have a container (todo list) of items (todos).
+
+1. filters
+2. counters (updating an item should change counters)
+3. inter-component communication
+4. routing (?)
+5. forms
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`.

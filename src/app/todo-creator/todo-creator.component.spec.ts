@@ -12,8 +12,8 @@ describe('TodoCreatorComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ TodoCreatorComponent ],
-      providers: [TodoService],
-      imports:[ReactiveFormsModule]
+      providers: [ TodoService ],
+      imports: [ ReactiveFormsModule ]
     })
     .compileComponents();
 

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
+
 import { TodoItem, TodoService } from '../todo.service';
 
 @Component({
@@ -6,8 +8,10 @@ import { TodoItem, TodoService } from '../todo.service';
   templateUrl: './todo-listing.component.html',
   styleUrls: ['./todo-listing.component.css']
 })
-export class TodoListingComponent implements OnInit {
+export class TodoListingComponent implements OnInit, OnDestroy {
   private todoInEditMode: string;
+
+  private subscriptions: Subscription[] = [];
 
   todos: TodoItem[];
 
@@ -15,13 +19,20 @@ export class TodoListingComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.todoService.todosObservable.subscribe((todos) => {
+    this.subscriptions.push(this.todoService.todosObservable.subscribe((todos) => {
       this.todos = todos;
-    });
+    }));
   }
 
-  delete(todo) {
-    this.todoService.delete(todo.id);
+  ngOnDestroy() {
+    this.subscriptions.forEach((subscription) => {
+      subscription.unsubscribe();
+    });
+    this.subscriptions = [];
+  }
+
+  destroy(todo) {
+    this.todoService.destroy(todo.id);
   }
 
   isInEditMode(todo) {
@@ -34,5 +45,13 @@ export class TodoListingComponent implements OnInit {
 
   exitEditMode() {
     this.todoInEditMode = null;
+  }
+
+  toggleDone(todo) {
+    this.todoService.update(todo.id, { done: !todo.done });
+  }
+
+  setText(todo, newText) {
+    this.todoService.update(todo.id, { text: newText });
   }
 }
