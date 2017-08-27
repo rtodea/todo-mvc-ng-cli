@@ -11,3 +11,21 @@ body {
   padding: 5px 10px;
 }
 
+input {
+  outline: none;
+  border: none;
+}
+
+button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 100%;
+  vertical-align: baseline;
+  font-family: inherit;
+  font-weight: inherit;
+  color: inherit;
+  -webkit-appearance: none;
+  -webkit-font-smoothing: antialiased;
+}

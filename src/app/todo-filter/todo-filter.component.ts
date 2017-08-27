@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 export enum FilterType {
   All,
@@ -19,6 +18,8 @@ export interface TodoFilter {
   styleUrls: ['./todo-filter.component.css']
 })
 export class TodoFilterComponent implements OnInit {
+  @Output() filterUpdated = new EventEmitter<FilterType>();
+
   filters: TodoFilter[] = [
     {
       label: 'Active',
@@ -42,7 +43,8 @@ export class TodoFilterComponent implements OnInit {
   ngOnInit() {
   }
 
-  enableFilter(activeFilter) {
+  setFilter(activeFilter: TodoFilter) {
+    this.filterUpdated.emit(activeFilter.type);
     this.filters.forEach((filter) => {
       filter.isActive = (filter.type === activeFilter.type);
     });

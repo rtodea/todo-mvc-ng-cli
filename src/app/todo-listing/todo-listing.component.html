@@ -1,15 +1,16 @@
 <ul *ngIf="todos.length">
   <li *ngFor="let todo of todos">
-    <span *ngIf="!isInEditMode(todo)">
-      <input type="checkbox"
+    <div *ngIf="!isInEditMode(todo)" class="todo-item" tabindex="1">
+      <input class="toggle"
+             type="checkbox"
              (click)="toggleDone(todo)">
-      <span [ngClass]="{done: todo.done}"
+      <label [ngClass]="{done: todo.done}" class="todo-item__text"
         (dblclick)="setEditMode(todo)">
         {{ todo.text }}
-      </span>
-      <button (click)="destroy(todo)">delete me</button>
-    </span>
-    <input *ngIf="isInEditMode(todo)"
+      </label>
+      <button class="destroy" (click)="destroy(todo)"></button>
+    </div>
+    <input *ngIf="isInEditMode(todo)" class="todo-input-text"
       (blur)="exitEditMode()" #todoText
       (keyup.enter)="setText(todo, todoText.value)">
   </li>

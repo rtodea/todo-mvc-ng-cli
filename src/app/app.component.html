@@ -12,7 +12,7 @@
 
     <footer>
       <tdm-todo-counter></tdm-todo-counter>
-      <tdm-todo-filter></tdm-todo-filter>
+      <tdm-todo-filter (filterUpdated)="setFilter($event)"></tdm-todo-filter>
     </footer>
   </section>
 </section>

@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import * as uuid from 'uuid';
-import { TodoFilter } from './todo-filter/todo-filter.component';
-import { StoreService } from "./store.service";
+import { FilterType } from './todo-filter/todo-filter.component';
 
 export class TodoItem implements TodoItem {
 
@@ -34,16 +33,41 @@ export interface UploadTodoItem {
 
 @Injectable()
 export class TodoService {
-  private todos: TodoItem[] = [];
-
   private todosById = new Map<string, TodoItem>();
 
   private todos$ = new Subject<TodoItem[]>();
 
+  private filteredTodos$ = new Subject<TodoItem[]>();
+
+  private activeFilter = FilterType.All;
+
+  todosSnapshot: TodoItem[] = [];
+
+  filteredTodosSnapshot: TodoItem[] = [];
+
   todosObservable = this.todos$.asObservable();
 
+  filteredTodosObservable = this.filteredTodos$.asObservable();
+
+  private getFilteredTodos(filter: FilterType) {
+    const filters = {
+      [FilterType.All]: (todos) => (todos),
+      [FilterType.Completed]: (todos) => (todos.filter((todo) => todo.done)),
+      [FilterType.Active]: (todos) => (todos.filter((todo) => !todo.done)),
+    };
+
+    return filters[filter](this.todosSnapshot);
+  }
+
+  constructor() {
+    this.todosObservable.subscribe(() => {
+      this.filteredTodosSnapshot = this.getFilteredTodos(this.activeFilter);
+      this.filteredTodos$.next(this.filteredTodosSnapshot);
+    });
+  }
+
   load(todos) {
-    this.todos = todos;
+    this.todosSnapshot = todos;
     todos.forEach((todo) => {
       this.todosById.set(todo.id, todo);
     });
@@ -51,28 +75,35 @@ export class TodoService {
     this.todos$.next(todos);
   }
 
-  constructor() {
-  }
-
   create(todoText: string) {
     const todoItem = new TodoItem(todoText);
 
-    this.todos.push(todoItem);
+    this.todosSnapshot.push(todoItem);
     this.todosById.set(todoItem.id, todoItem);
-    this.todos$.next(this.todos);
+    this.todos$.next(this.todosSnapshot);
 
     return todoItem;
   }
 
   destroy(todoId: string) {
-    this.todos = this.todos.filter((todo) => todo.id !== todoId);
+    this.todosSnapshot = this.todosSnapshot.filter((todo) => todo.id !== todoId);
     this.todosById.delete(todoId);
-    this.todos$.next(this.todos);
+    this.todos$.next(this.todosSnapshot);
   }
 
   update(todoId: string, payload: UploadTodoItem) {
     const foundTodo = this.todosById.get(todoId);
     Object.assign(foundTodo, payload);
-    this.todos$.next(this.todos);
+    this.todos$.next(this.todosSnapshot);
+  }
+
+  setFilter(filter: FilterType) {
+    this.activeFilter = filter;
+    this.filteredTodosSnapshot = this.getFilteredTodos(this.activeFilter);
+    this.filteredTodos$.next(this.filteredTodosSnapshot);
+  }
+
+  getFilter() {
+    return this.activeFilter;
   }
 }

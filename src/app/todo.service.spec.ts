@@ -1,6 +1,7 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { TodoService, TodoItem } from './todo.service';
+import { FilterType } from './todo-filter/todo-filter.component';
 
 describe('TodoService', () => {
   beforeEach(() => {
@@ -65,7 +66,6 @@ describe('TodoService', () => {
     expect(todo.text).toEqual(newText);
   }));
 
-
   it('should load todos', (done) => {
     inject([TodoService], (service: TodoService) => {
       const todos = [
@@ -80,6 +80,23 @@ describe('TodoService', () => {
       });
 
       service.load(todos);
+    })();
+  });
+
+  it('should have a filter todos set', (done) => {
+    inject([TodoService], (service: TodoService) => {
+      const allTodos = ['first', 'second'].map((todoText) => (service.create(todoText)));
+
+      service.filteredTodosObservable.subscribe((todos) => {
+        if (service.getFilter() === FilterType.Completed) {
+          expect(todos.length).toEqual(1);
+          expect(todos[0].id).toEqual(allTodos[0].id);
+          done();
+        }
+      });
+
+      service.update(allTodos[0].id, { done: true });
+      service.setFilter(FilterType.Completed);
     })();
   });
 });

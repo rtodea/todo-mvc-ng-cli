@@ -38,8 +38,19 @@ describe('TodoFilterComponent', () => {
   it('should set only one active filter', () => {
     const [[completedFilter], otherFilters] = R.partition((filter) => filter.type === FilterType.Completed, component.filters);
     expect(completedFilter.isActive).toBe(false);
-    component.enableFilter(completedFilter);
+    component.setFilter(completedFilter);
     expect(completedFilter.isActive).toBe(true);
     expect(otherFilters.every((filter) => filter.isActive)).toBe(false);
+  });
+
+  it('should emit a filter event when setting the current filter', () => {
+    // I am using both approaches for the sake of documenting them
+    component.filterUpdated.subscribe((filter: FilterType) => {
+      expect(filter).toEqual(FilterType.Completed);
+    });
+
+    spyOn(component.filterUpdated, 'emit');
+    component.setFilter({ isActive: false, type: FilterType.Completed, label: 'Completed' });
+    expect(component.filterUpdated.emit).toHaveBeenCalledWith(FilterType.Completed);
   });
 });

@@ -19,7 +19,8 @@ export class TodoListingComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscriptions.push(this.todoService.todosObservable.subscribe((todos) => {
+    this.todos = this.todoService.filteredTodosSnapshot;
+    this.subscriptions.push(this.todoService.filteredTodosObservable.subscribe((todos) => {
       this.todos = todos;
     }));
   }
