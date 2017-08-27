@@ -4,7 +4,7 @@ import { StoreService } from './store.service';
 
 @Injectable()
 export class TodoStoreService {
-  private TODO_STORE_KEY = 'todos';
+  TODO_STORE_KEY = 'todos';
 
   constructor(todoService: TodoService, storeService: StoreService) {
     todoService.todosObservable.subscribe((todos) => {
@@ -16,5 +16,4 @@ export class TodoStoreService {
       todoService.load(storedTodos);
     }
   }
-
 }

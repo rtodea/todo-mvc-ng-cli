@@ -34,7 +34,7 @@ export class StoreService {
 
   getBrowserOrInMemoryLocalStorage() {
     try {
-      const browserLocalStorage = (window || {})['store'];// TODO: fix this...
+      const browserLocalStorage = (window || {})['localStorage'];// TODO: fix this...
       if (!browserLocalStorage) {
         throw Error('No Local Storage support');
       }
