@@ -12,6 +12,7 @@
     </div>
     <input *ngIf="isInEditMode(todo)" class="todo-input-text"
       (blur)="exitEditMode()" #todoText
+      [value]="todo.text"
       (keyup.enter)="setText(todo, todoText.value)">
   </li>
 </ul>

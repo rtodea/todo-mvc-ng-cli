@@ -54,5 +54,6 @@ export class TodoListingComponent implements OnInit, OnDestroy {
 
   setText(todo, newText) {
     this.todoService.update(todo.id, { text: newText });
+    this.exitEditMode();
   }
 }
